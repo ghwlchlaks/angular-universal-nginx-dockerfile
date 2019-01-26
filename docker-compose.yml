@@ -1,0 +1,23 @@
+version: "1.0"
+services:
+        angular:
+                container_name: angular
+                build: ./angular.dockerfile
+                ports:
+                        - '4000:4000'
+                environment:
+                        - PORT=4000
+                networks:
+                        - backend
+        nginx:
+                container_name: nginx
+                build: ./nginx.dockerfile
+                ports:
+                        - '80:80'
+                networks: 
+                        - backend
+                depends_on:
+                        - angular
+networks:
+        backend:
+                driver: bridge
